@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="JDK" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Blocks" />
+            <option value="$PROJECT_DIR$/FtcCommon" />
+            <option value="$PROJECT_DIR$/FtcRobotController" />
+            <option value="$PROJECT_DIR$/Hardware" />
+            <option value="$PROJECT_DIR$/Inspection" />
+            <option value="$PROJECT_DIR$/OpenRC" />
+            <option value="$PROJECT_DIR$/RobotCore" />
+            <option value="$PROJECT_DIR$/RobotServer" />
+            <option value="$PROJECT_DIR$/TeamCode" />
+            <option value="$PROJECT_DIR$/Tfod" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

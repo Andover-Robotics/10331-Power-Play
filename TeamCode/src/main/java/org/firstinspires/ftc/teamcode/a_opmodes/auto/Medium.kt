@@ -1,24 +1,18 @@
 package org.firstinspires.ftc.teamcode.a_opmodes.auto
 
-
 import com.acmerobotics.roadrunner.geometry.Pose2d
-import com.acmerobotics.roadrunner.geometry.Vector2d
 import com.acmerobotics.roadrunner.trajectory.MarkerCallback
 import com.acmerobotics.roadrunner.trajectory.Trajectory
 import com.arcrobotics.ftclib.command.*
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.a_opmodes.auto.pipeline.TemplateDetector
-import org.firstinspires.ftc.teamcode.GlobalConfig;
 import org.firstinspires.ftc.teamcode.c_drive.RRMecanumDrive
 import org.firstinspires.ftc.teamcode.b_hardware.Bot
 import java.lang.Math.toRadians
 import kotlin.math.PI
 import kotlin.math.roundToInt
 
-
-
-class FullSide(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
+class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
 
     //TODO: reverse this
 
@@ -152,7 +146,7 @@ class FullSide(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths 
     //    )
 
 
-  //  val startPose = p2d(65.5, -45.0, -PI / 2)
+    //  val startPose = p2d(65.5, -45.0, -PI / 2)
 
     //TODO: Make Trajectories in trajectorySets
 

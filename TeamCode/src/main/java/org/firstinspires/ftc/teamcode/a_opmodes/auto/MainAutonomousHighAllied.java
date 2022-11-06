@@ -6,20 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.GlobalConfig;
-import org.firstinspires.ftc.teamcode.a_opmodes.auto.pipeline.BarcodeDetector;
 import org.firstinspires.ftc.teamcode.a_opmodes.auto.pipeline.TemplateDetector;
-import org.firstinspires.ftc.teamcode.a_opmodes.auto.pipeline.TemplateDetector.PipelineResult;
 import org.firstinspires.ftc.teamcode.b_hardware.Bot;
 
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
-
-import java.util.List;
-
-@Autonomous(name = "Main Autonomous", group = "Competition")
-public class MainAutonomous extends LinearOpMode {//TODO: add reversing for competition
+@Autonomous(name = "Main Autonomous Medium", group = "Competition")
+public class MainAutonomousHighAllied extends LinearOpMode {//TODO: add reversing for competition
 
     private Bot bot;
 
