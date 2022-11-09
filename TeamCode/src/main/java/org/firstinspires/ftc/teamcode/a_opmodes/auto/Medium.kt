@@ -1,16 +1,21 @@
 package org.firstinspires.ftc.teamcode.a_opmodes.auto
 
+
 import com.acmerobotics.roadrunner.geometry.Pose2d
+import com.acmerobotics.roadrunner.geometry.Vector2d
 import com.acmerobotics.roadrunner.trajectory.MarkerCallback
 import com.acmerobotics.roadrunner.trajectory.Trajectory
 import com.arcrobotics.ftclib.command.*
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import org.firstinspires.ftc.teamcode.GlobalConfig
 import org.firstinspires.ftc.teamcode.a_opmodes.auto.pipeline.TemplateDetector
 import org.firstinspires.ftc.teamcode.c_drive.RRMecanumDrive
 import org.firstinspires.ftc.teamcode.b_hardware.Bot
 import java.lang.Math.toRadians
 import kotlin.math.PI
 import kotlin.math.roundToInt
+
+
 
 class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
 
@@ -63,13 +68,13 @@ class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths fu
     }
 
 
-//    fun p2d(x: Double, y: Double, h: Double): Pose2d {
-//        return Pose2d(
-//                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) x else -x,
-//                y,
-//                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) h else h + PI
-//        )
-//    }
+    fun p2d(x: Double, y: Double, h: Double): Pose2d {
+        return Pose2d(
+                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) x else x,
+                y,
+                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) h else h
+        )
+    }
 
 
     class FollowTrajectory(val bot: Bot, val trajectory: Trajectory) : CommandBase() {
@@ -78,13 +83,12 @@ class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths fu
         override fun isFinished() = !bot.roadRunner.isBusy
     }
 
-//    fun v2D(v: Vector2d, h: Double): Pose2d {
-//        return Pose2d(
-//                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) v.x else -v.x,
-//                v.y,
-//                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) h else h - (PI / 2)
-//        )
-//    }
+    fun v2d(x: Double, y: Double): Vector2d {
+        return Vector2d(
+                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) x else x,
+                if (GlobalConfig.alliance == GlobalConfig.Alliance.RED) y else y
+        )
+    }
 
 
 //    val open = AutoPathElement.Action("Clamp open") {
@@ -146,7 +150,7 @@ class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths fu
     //    )
 
 
-    //  val startPose = p2d(65.5, -45.0, -PI / 2)
+    val startPose = p2d(72.0,-36.0,0.0)
 
     //TODO: Make Trajectories in trajectorySets
 
@@ -164,9 +168,16 @@ class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths fu
 //        downArm).
 //    }
 
+
     val trajectorySets: Map<TemplateDetector.PipelineResult, List<Any>> = mapOf(
             TemplateDetector.PipelineResult.LEFT to run {
                 listOf(
+                        drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
+                                .splineTo(v2d(24.0,-24.0),Math.toRadians(0.0))
+                                .strafeTo(v2d(24.0,-72.0))
+                                .build()
+
+
                 )
             },
             TemplateDetector.PipelineResult.MIDDLE to run {

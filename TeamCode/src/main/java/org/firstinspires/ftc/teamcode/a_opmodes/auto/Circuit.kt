@@ -17,7 +17,7 @@ import kotlin.math.roundToInt
 
 
 
-class HighOpposing(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
+class Circuit(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
 
     //TODO: reverse this
 
@@ -173,12 +173,15 @@ class HighOpposing(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPa
             TemplateDetector.PipelineResult.LEFT to run {
                 listOf(
                         drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
-                                .forward(24.0)
-                                .splineTo(v2d(0.0,-24.0), Math.toRadians(0.0))
-                                .strafeTo(v2d(24.0, -72.0,))
+                                .lineToLinearHeading(p2d(48.0,-48.0, Math.toRadians(0.0)))
+                                .strafeTo(v2d(12.0,-72.0))
+                                .splineTo(v2d(48.0,-24.0), Math.toRadians(0.0))
+                                .splineTo(v2d(12.0,72.0), Math.toRadians(0.0))
+                                .splineTo(v2d(24.0,-24.0), Math.toRadians(0.0))
+                                .splineTo(v2d(12.0,-72.0), Math.toRadians(0.0))
+                                .strafeTo(v2d(24.0,-48.0))
                                 .build()
-                        //change all values to correct path
-                        //conitnue working
+                                //add parking for all autopaths i think
 
                 )
             },
