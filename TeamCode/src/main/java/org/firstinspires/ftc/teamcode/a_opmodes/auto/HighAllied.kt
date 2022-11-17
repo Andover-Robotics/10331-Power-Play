@@ -178,7 +178,11 @@ class HighAllied(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPath
                                     .strafeTo(v2d(24.0, -72.0,))
                                     .build()
                                     //goes to farther high junction and to cones, imcomplete for sake of testing
-
+                        //The currently written coordinates are for right red alliance
+                        //For blue left: (-x,y) including start position
+                        //for red left: (-x,-y) incl start pos
+                        //for blue right: (x,-y)n incl start pos
+                        //the trajectories remain unchanged for all (?), probably need to test positioning/rotation angle on all the paths
                 )
             },
             TemplateDetector.PipelineResult.MIDDLE to run {

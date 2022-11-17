@@ -130,6 +130,51 @@ public class MainTeleOp extends BaseOpMode {//required vars here
      */
 
 
+    if(gamepadEx2.getButton(Button.Y)) {
+      bot.fourBar.runToHigh();
+      bot.arm.highPosition();
+    }
+
+    if(gamepadEx2.getButton(Button.B)) {
+      bot.fourBar.runToMid();
+      bot.arm.mediumPosition();
+    }
+
+    if(gamepadEx2.getButton(Button.A)) {
+      bot.fourBar.runToLow();
+      bot.arm.lowPosition();
+    }
+
+    if(gamepadEx2.getButton(Button.X)) {
+      bot.fourBar.restArm();
+      bot.arm.closed();
+    }
+
+
+    //TODO: claw function
+    if (gamepadEx2.getButton(Button.DPAD_LEFT)){
+   //   bot.outtake.runToMid();
+    }
+    if (gamepadEx2.getButton(Button.DPAD_UP)){
+   //   bot.outtake.runToHigh();
+    }
+
+    if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+      bot.fourBar.runBar(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+    }else if(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+      bot.arm.runArm(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+    }else{
+      bot.fourBar.stopBar();
+      bot.arm.stopArm();
+    }
+
+
+
+
+
+
+
+
 
     CommandScheduler.getInstance().run();
 

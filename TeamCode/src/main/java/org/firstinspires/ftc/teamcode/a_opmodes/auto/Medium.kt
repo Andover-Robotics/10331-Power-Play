@@ -175,7 +175,13 @@ class Medium(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths fu
                         drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
                                 .splineTo(v2d(24.0,-24.0),Math.toRadians(0.0))
                                 .strafeTo(v2d(24.0,-72.0))
+                                .strafeTo(v2d(24.0,-24.0))
                                 .build()
+                        //The currently written coordinates are for right red alliance
+                        //For blue left: (-x,y) including start position
+                        //for red left: (-x,-y) incl start pos
+                        //for blue right: (x,-y) incl start pos
+                        //the trajectories remain unchanged for all (?)
 
 
                 )

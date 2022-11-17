@@ -181,7 +181,13 @@ class Circuit(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths f
                                 .splineTo(v2d(12.0,-72.0), Math.toRadians(0.0))
                                 .strafeTo(v2d(24.0,-48.0))
                                 .build()
-                                //add parking for all autopaths i think
+                                //add parking for all autopathsand also test rotation angles and stuff
+
+                //The currently written coordinates are for right red alliance
+                //For blue left: (-x,y) including start position
+                //for red left: (-x,-y) incl start pos
+                //for blue right: (x,-y)n incl start pos
+                //the trajectories remain unchanged for all (?)
 
                 )
             },
