@@ -146,7 +146,7 @@ public class MainTeleOp extends BaseOpMode {//required vars here
     }
 
     if(gamepadEx2.getButton(Button.X)) {
-      bot.fourBar.restArm();
+      bot.fourBar.stopBar();
       bot.arm.closed();
     }
 
@@ -168,6 +168,12 @@ public class MainTeleOp extends BaseOpMode {//required vars here
       bot.arm.stopArm();
     }
 
+    if (gamepadEx2.getButton(Button.DPAD_UP)){
+      bot.claw.openClaw();
+    }
+    else if(gamepadEx2.getButton(Button.DPAD_DOWN)){
+      bot.claw.closeClaw();
+    }
 
 
 
