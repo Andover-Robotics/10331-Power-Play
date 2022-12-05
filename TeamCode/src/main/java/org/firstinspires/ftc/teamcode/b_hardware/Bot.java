@@ -35,10 +35,11 @@ public class Bot {
 //  public final Intake intake;
 //  public final Cosmetics cosmetics;
 //  public Pair<ExpansionHubEx, ExpansionHubEx> hubs = null;
-  public final Fourbar fourBar;
+
+//  public final Fourbar fourBar;
   public OpMode opMode;
-  public final Claw claw;
-  public final Arm arm;
+//  public final Claw claw;
+//  public final Arm arm;
   public final BNO055IMU imu0;
   public final BNO055IMU imu1;
 //    public ChUpdaterCommManager.ChUpdaterBroadcastReceiver.AllowancePeriodExpiredRunnable intake;
@@ -79,9 +80,9 @@ public class Bot {
 //    this.templateSubsystem = new TemplateSubsystem(opMode);
 //    this.carousel = new Carousel(opMode);
 //    this.intake = new Intake(opMode);
-    this.fourBar = new Fourbar(opMode);
-    this.claw = new Claw(opMode);
-    this.arm = new Arm(opMode);
+//    this.fourBar = new Fourbar(opMode);
+//    this.claw = new Claw(opMode);
+//    this.arm = new Arm(opMode);
 
 
     //required subsystems
