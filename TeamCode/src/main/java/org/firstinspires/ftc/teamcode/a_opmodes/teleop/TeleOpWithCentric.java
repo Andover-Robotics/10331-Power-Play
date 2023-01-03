@@ -139,6 +139,54 @@ public class TeleOpWithCentric extends BaseOpMode {//required vars here
 
      */
 
+        if(gamepadEx2.getButton(Button.Y)) {
+            bot.fourBar.runToHigh();
+            bot.claw.openClaw();
+        }
+
+        if(gamepadEx2.getButton(Button.B)) {
+            bot.fourBar.runToMid();
+            bot.claw.openClaw();
+        }
+
+        if(gamepadEx2.getButton(Button.A)) {
+            bot.fourBar.runToLow();
+            bot.claw.openClaw();
+        }
+
+        if(gamepadEx2.getButton(Button.X)) {
+            bot.fourBar.stopBar();
+            bot.claw.openClaw();
+        }
+
+
+        //TODO: claw function
+        if (gamepadEx2.getButton(Button.DPAD_LEFT)){
+            //   bot.outtake.runToMid();
+        }
+        if (gamepadEx2.getButton(Button.DPAD_UP)){
+            //   bot.outtake.runToHigh();
+        }
+
+        if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+            bot.fourBar.runBar(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+        }else{
+            bot.fourBar.stopBar();
+        }
+
+        if (gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER) > 0.01){
+            bot.fourBar.reverseBar(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
+        }else{
+            bot.fourBar.stopBar();
+        }
+
+        if (gamepadEx2.getButton(Button.DPAD_UP)){
+            bot.claw.openClaw();
+        }
+        else if(gamepadEx2.getButton(Button.DPAD_DOWN)){
+            bot.claw.closeClaw();
+        }
+
 
 
         CommandScheduler.getInstance().run();
