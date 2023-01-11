@@ -139,6 +139,22 @@ public class TeleOpWithCentric extends BaseOpMode {//required vars here
 
      */
 
+        if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+            bot.fourBar.runLeft(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+        }else if(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER) > 0.01){
+            bot.fourBar.runRight(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
+//    }else{
+//      bot.fourBar.stopBar();
+//
+        }
+
+        if (gamepadEx2.getButton(Button.LEFT_BUMPER)){
+            bot.claw.openClaw();
+        }
+        else{
+            bot.claw.closeClaw();
+        }
+
 
 
         CommandScheduler.getInstance().run();

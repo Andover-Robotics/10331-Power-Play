@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.GlobalConfig;
 
-import org.firstinspires.ftc.teamcode.b_hardware.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.b_hardware.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.b_hardware.subsystems.Fourbar;
 import org.firstinspires.ftc.teamcode.c_drive.RRMecanumDrive;
@@ -36,9 +35,9 @@ public class Bot {
 //  public final Cosmetics cosmetics;
 //  public Pair<ExpansionHubEx, ExpansionHubEx> hubs = null;
 
-//  public final Fourbar fourBar;
+  public final Fourbar fourBar;
   public OpMode opMode;
-//  public final Claw claw;
+  public final Claw claw;
 //  public final Arm arm;
   public final BNO055IMU imu0;
   public final BNO055IMU imu1;
@@ -80,8 +79,8 @@ public class Bot {
 //    this.templateSubsystem = new TemplateSubsystem(opMode);
 //    this.carousel = new Carousel(opMode);
 //    this.intake = new Intake(opMode);
-//    this.fourBar = new Fourbar(opMode);
-//    this.claw = new Claw(opMode);
+    this.fourBar = new Fourbar(opMode);
+    this.claw = new Claw(opMode);
 //    this.arm = new Arm(opMode);
 
 

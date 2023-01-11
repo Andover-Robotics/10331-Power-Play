@@ -129,51 +129,36 @@ public class MainTeleOp extends BaseOpMode {//required vars here
 
      */
 
-//
+
 //    if(gamepadEx2.getButton(Button.Y)) {
 //      bot.fourBar.runToHigh();
-//      bot.arm.highPosition();
-//    }
-//
-//    if(gamepadEx2.getButton(Button.B)) {
+//    }else if(gamepadEx2.getButton(Button.B)) {
 //      bot.fourBar.runToMid();
-//      bot.arm.mediumPosition();
-//    }
-//
-//    if(gamepadEx2.getButton(Button.A)) {
+//    }else if(gamepadEx2.getButton(Button.A)){
 //      bot.fourBar.runToLow();
-//      bot.arm.lowPosition();
-//    }
-//
-//    if(gamepadEx2.getButton(Button.X)) {
+//    }else if(gamepadEx2.getButton(Button.X)) {
 //      bot.fourBar.stopBar();
-//      bot.arm.closed();
 //    }
-//
-//
-//    //TODO: claw function
-//    if (gamepadEx2.getButton(Button.DPAD_LEFT)){
-//   //   bot.outtake.runToMid();
-//    }
-//    if (gamepadEx2.getButton(Button.DPAD_UP)){
-//   //   bot.outtake.runToHigh();
-//    }
-//
-//    if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
-//      bot.fourBar.runBar(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
-//    }else if(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
-//      bot.arm.runArm(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+
+
+    //TODO: claw function
+
+
+    if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+      bot.fourBar.runLeft(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+    }else if(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER) > 0.01){
+      bot.fourBar.runRight(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
 //    }else{
 //      bot.fourBar.stopBar();
-//      bot.arm.stopArm();
-//    }
 //
-//    if (gamepadEx2.getButton(Button.DPAD_UP)){
-//      bot.claw.openClaw();
-//    }
-//    else if(gamepadEx2.getButton(Button.DPAD_DOWN)){
-//      bot.claw.closeClaw();
-//    }
+    }
+
+    if (gamepadEx2.getButton(Button.LEFT_BUMPER)){
+      bot.claw.openClaw();
+    }
+    else{
+      bot.claw.closeClaw();
+    }
 
 
 
@@ -188,6 +173,10 @@ public class MainTeleOp extends BaseOpMode {//required vars here
     updateLocalization();
 
     telemetry.addData("telemetry things update", System.currentTimeMillis() - profileStart);
+
+    //telemetry.addData("motor left position", bot.fourBar.left.getCurrentPosition());
+    //telemetry.addData("motor right position", bot.fourBar.right.getCurrentPosition());
+
 
     telemetry.addData("percent", percent);
     telemetry.addData("part", part);
@@ -206,7 +195,7 @@ public class MainTeleOp extends BaseOpMode {//required vars here
 
   private void drive(){//Driving ===================================================================================
     updateState();
-    double slowModeSpeed = 0.5;
+    double slowModeSpeed = 0.2;
 
     final double gyroAngle =
         bot.imu.getAngularOrientation().toAngleUnit(AngleUnit.DEGREES).secondAngle//TODO: make sure that the orientation is correct

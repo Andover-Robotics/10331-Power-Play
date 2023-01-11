@@ -7,35 +7,20 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw extends SubsystemBase{
-//    private Servo leftClaw;
-//    private Servo rightClaw;
+        private Servo claw;
 //
-//    //TODO: find positions
-//    private static double
-//            leftOpen = 0.2,
-//            leftClosed = 0.1,
-//            rightOpen = 0.15,
-//            rightClosed = 0.25;
-//
-//
-//    public Claw(OpMode opMode){
-//        leftClaw = opMode.hardwareMap.servo.get("leftClaw");
-//        leftClaw.setDirection(Servo.Direction.FORWARD);
-//
-//        rightClaw = opMode.hardwareMap.servo.get("rightClaw");
-//        rightClaw.setDirection(Servo.Direction.FORWARD);
-//
-//    }
+    public Claw(OpMode opMode){
+        claw = opMode.hardwareMap.servo.get("claw");
+        claw.setDirection(Servo.Direction.FORWARD);
+        closeClaw();
+    }
 //    // TODO: ask Sasha about how claw works
-//    public void closeClaw(){
-//        leftClaw.setPosition(leftClosed);
-//        rightClaw.setPosition(rightClosed);
-//    }
+    public void closeClaw(){
+        claw.setPosition(0);
+    }
 //
-//    public void openClaw(){
-//        leftClaw.setPosition(leftOpen);
-//        rightClaw.setPosition(rightOpen);
-//    }
+    public void openClaw(){
+        claw.setPosition(0.15);}
 
 
 }
