@@ -20,10 +20,6 @@ public class Bot {
 
 
   //TODO: Declare subsystems here
-  //example
-//  public final Carousel carousel;
-//  public final Intake intake;
-//  public final TemplateSubsystem templateSubsystem;
 
 
 
@@ -31,17 +27,14 @@ public class Bot {
   public final MecanumDrive drive;
   public final RRMecanumDrive roadRunner;
   public final BNO055IMU imu;
-//  public final Intake intake;
-//  public final Cosmetics cosmetics;
-//  public Pair<ExpansionHubEx, ExpansionHubEx> hubs = null;
+  private MotorEx fl, fr, bl, br;
 
   public final Fourbar fourBar;
   public OpMode opMode;
   public final Claw claw;
-//  public final Arm arm;
   public final BNO055IMU imu0;
   public final BNO055IMU imu1;
-//    public ChUpdaterCommManager.ChUpdaterBroadcastReceiver.AllowancePeriodExpiredRunnable intake;
+
 
     /** Get the current Bot instance from somewhere other than an OpMode */
   public static Bot getInstance() {
@@ -84,12 +77,20 @@ public class Bot {
 //    this.arm = new Arm(opMode);
 
 
+    fl = new MotorEx(opMode.hardwareMap, "motorFL");
+    fr = new MotorEx(opMode.hardwareMap, "motorFR");
+    bl = new MotorEx(opMode.hardwareMap, "motorBL");
+    br = new MotorEx(opMode.hardwareMap, "motorBR");
+
     //required subsystems
-    this.drive = new MecanumDrive(false,
-        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFL),
-        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFR),
-        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBL),
-        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBR));
+    this.drive = new MecanumDrive(fl, fr, bl, br);
+
+    //required subsystems
+//    this.drive = new MecanumDrive(false,
+//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFL),
+//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFR),
+//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBL),
+//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBR));
     this.roadRunner = new RRMecanumDrive(opMode.hardwareMap);
 //    this.cosmetics = new Cosmetics(opMode);
     imu = roadRunner.imu;
@@ -102,6 +103,47 @@ public class Bot {
 //    params.angleUnit = AngleUnit.RADIANS;
 //    imu.initialize(params);
 //  }
+
+  public void fixMotors(){
+    drive.setRightSideInverted(true);
+
+    fl.setInverted(false);
+    fr.setInverted(true);
+    bl.setInverted(false);
+    br.setInverted(true);
+
+    fl.setRunMode(MotorEx.RunMode.RawPower);
+    fr.setRunMode(MotorEx.RunMode.RawPower);
+    bl.setRunMode(MotorEx.RunMode.RawPower);
+    br.setRunMode(MotorEx.RunMode.RawPower);
+
+    fl.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
+    fr.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
+    bl.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
+    br.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
+  }
+
+  public void drive(double strafeSpeed, double forwardBackSpeed, double turnSpeed){
+    double speeds[] = {
+            forwardBackSpeed-strafeSpeed-turnSpeed,
+            forwardBackSpeed+strafeSpeed+turnSpeed,
+            forwardBackSpeed+strafeSpeed-turnSpeed,
+            forwardBackSpeed-strafeSpeed+turnSpeed
+    };
+    double maxSpeed = 0;
+    for(int i = 0; i < 4; i++){
+      maxSpeed = Math.max(maxSpeed, speeds[i]);
+    }
+    if(maxSpeed > 1) {
+      for (int i = 0; i < 4; i++){
+        speeds[i] /= maxSpeed;
+      }
+    }
+    fl.set(speeds[0]);
+    fr.set(speeds[1]);
+    bl.set(speeds[2]);
+    br.set(speeds[3]);
+  }
 
   private void enableAutoBulkRead() {
     for (LynxModule mod : opMode.hardwareMap.getAll(LynxModule.class)) {

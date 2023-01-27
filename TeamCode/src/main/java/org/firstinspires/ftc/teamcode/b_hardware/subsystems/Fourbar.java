@@ -14,6 +14,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Fourbar extends SubsystemBase{
     public MotorEx left;
     public MotorEx right;
+    private final PIDFController controller;
+    public static double p = 0.04, d = 0, f = 0, staticF = 0.1;
+    public static double tolerance = 100, powerUp = 0.4;
+    public static int mid = 2900, low = 1700, ground = 40, retrieval = 0, inc = 100, dec = 100;
+
+    private int target = 0;
+
+
 
 
  public Fourbar (OpMode opMode)
@@ -28,145 +36,60 @@ public class Fourbar extends SubsystemBase{
       //  right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         right.motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    }
-
-    public void runToHigh(){
-        left.setRunMode(Motor.RunMode.PositionControl);
-        left.setPositionTolerance(5);
-        left.setTargetPosition(1205);//TODO: set position
-        while(!left.atTargetPosition()){
-            left.set(0.8);//TODO: set position
-        }
-        left.stopMotor();
-        left.setRunMode(Motor.RunMode.RawPower);
-
-
-        right.setRunMode(Motor.RunMode.PositionControl);
-        right.setPositionTolerance(5);
-        right.setTargetPosition(1205);//TODO: set position
-        while(!right.atTargetPosition()){
-            right.set(0.8);//TODO: set position
-        }
-        right.stopMotor();
-        right.setRunMode(Motor.RunMode.RawPower);
-
+        controller = new PIDFController(p, 0, d, f);
+        controller.setTolerance(tolerance);
+        controller.setSetPoint(target);
 
     }
 
-    public void runToMid(){
-        left.setRunMode(Motor.RunMode.PositionControl);
-        left.setPositionTolerance(5);
-        left.setTargetPosition(1205);//TODO: set position
-        while(!left.atTargetPosition()){
-            left.set(0.8);//TODO: set position
-        }
-        left.stopMotor();
-        left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.setRunMode(Motor.RunMode.RawPower);
 
-
-
-
-
-
-        right.setRunMode(Motor.RunMode.PositionControl);
-        right.setPositionTolerance(5);
-        right.setTargetPosition(1205);//TODO: set position
-        while(!right.atTargetPosition()){
-            right.set(0.8);//TODO: set position
-        }
-        right.stopMotor();
-        right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        right.setRunMode(Motor.RunMode.RawPower);
-
-
-    }
-
-    public void runToLow(){
-
-
-        left.setRunMode(Motor.RunMode.PositionControl);
-        left.setPositionTolerance(5);
-        left.setTargetPosition(1205);//TODO: set position
-        while(!left.atTargetPosition()){
-            left.set(0.8);//TODO: set position
-        }
-        left.stopMotor();
-        left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.setRunMode(Motor.RunMode.RawPower);
-
-
-
-
-
-        right.setRunMode(Motor.RunMode.PositionControl);
-        right.setPositionTolerance(5);
-        right.setTargetPosition(1205);//TODO: set position
-        while(!right.atTargetPosition()){
-            right.set(0.8);//TODO: set position
-        }
-        right.stopMotor();
-        right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        right.setRunMode(Motor.RunMode.RawPower);
-
-
-    }
-
-    public void restBar(){
-        left.setRunMode(Motor.RunMode.PositionControl);
-        left.setPositionTolerance(5);
-        left.setTargetPosition(0);//TODO: set position
-        while(!left.atTargetPosition()){
-           left.set(0.8);//TODO: set position
-        }
-        left.stopMotor();
-        left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.setRunMode(Motor.RunMode.RawPower);
-
-
-
-        right.setRunMode(Motor.RunMode.PositionControl);
-        right.setPositionTolerance(5);
-        right.setTargetPosition(0);//TODO: set position
-        while(!right.atTargetPosition()){
-            right.set(0.8);//TODO: set position
-        }
-        right.stopMotor();
-        right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        right.setRunMode(Motor.RunMode.RawPower);
-
-
-
-    }
-
-    public void runBar(double speed){
-        left.set(speed);
-        right.set(speed);
-
-    }
-
-    public void stopBar(){
-        left.stopMotor();
-        right.stopMotor();
-    }
-
-    public void reverseBar(double speed)
+    public void runTo (int t)
     {
-        left.set(-speed);
-        right.set(-speed);
+        controller.setSetPoint(t);
+        target = t;
     }
 
-
-    public void runLeft(double speed)
+    public void up()
     {
-        left.set(speed*0.5);
+        runTo(target+inc);
     }
 
-    public void runRight(double speed)
+    public void down()
     {
-        right.set(speed*0.5);
+        runTo(target-dec);
     }
 
+    public void toMid()
+    {
+        runTo(mid);
+    }
+
+    public void toLow()
+    {
+        runTo(low);
+    }
+
+    public void toGround()
+    {
+        runTo(ground);
+    }
+
+    public void toRetrieval()
+    {
+        runTo(retrieval);
+    }
+
+    public void periodic()
+    {
+        controller.setPIDF(p, 0, d , f);
+        if(controller.atSetPoint()){
+            left.set(staticF);
+            right.set(staticF);
+        }else{
+            left.set(powerUp * controller.calculate(left.getCurrentPosition()));
+            right.set(powerUp * controller.calculate(right.getCurrentPosition()));
+        }
+    }
 
 }
 

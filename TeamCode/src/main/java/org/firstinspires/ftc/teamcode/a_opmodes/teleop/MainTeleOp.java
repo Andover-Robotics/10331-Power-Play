@@ -18,7 +18,6 @@ public class MainTeleOp extends BaseOpMode {//required vars here
   private boolean centricity = false;
   private boolean isManual = true;
   private int percent = 1, part = 0;
- // private boolean clawIsOpen = false;
 
 
 
@@ -144,14 +143,14 @@ public class MainTeleOp extends BaseOpMode {//required vars here
     //TODO: claw function
 
 
-    if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
-      bot.fourBar.runLeft(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
-    }else if(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER) > 0.01){
-      bot.fourBar.runRight(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
+//    if (gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER) > 0.01){
+//      bot.fourBar.runLeft(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+//    }else if(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER) > 0.01){
+//      bot.fourBar.runRight(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
 //    }else{
 //      bot.fourBar.stopBar();
 //
-    }
+//    }
 
     if (gamepadEx2.getButton(Button.LEFT_BUMPER)){
       bot.claw.openClaw();
