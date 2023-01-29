@@ -104,46 +104,6 @@ public class Bot {
 //    imu.initialize(params);
 //  }
 
-  public void fixMotors(){
-    drive.setRightSideInverted(true);
-
-    fl.setInverted(false);
-    fr.setInverted(true);
-    bl.setInverted(false);
-    br.setInverted(true);
-
-    fl.setRunMode(MotorEx.RunMode.RawPower);
-    fr.setRunMode(MotorEx.RunMode.RawPower);
-    bl.setRunMode(MotorEx.RunMode.RawPower);
-    br.setRunMode(MotorEx.RunMode.RawPower);
-
-    fl.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
-    fr.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
-    bl.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
-    br.setZeroPowerBehavior(MotorEx.ZeroPowerBehavior.BRAKE);
-  }
-
-  public void drive(double strafeSpeed, double forwardBackSpeed, double turnSpeed){
-    double speeds[] = {
-            forwardBackSpeed-strafeSpeed-turnSpeed,
-            forwardBackSpeed+strafeSpeed+turnSpeed,
-            forwardBackSpeed+strafeSpeed-turnSpeed,
-            forwardBackSpeed-strafeSpeed+turnSpeed
-    };
-    double maxSpeed = 0;
-    for(int i = 0; i < 4; i++){
-      maxSpeed = Math.max(maxSpeed, speeds[i]);
-    }
-    if(maxSpeed > 1) {
-      for (int i = 0; i < 4; i++){
-        speeds[i] /= maxSpeed;
-      }
-    }
-    fl.set(speeds[0]);
-    fr.set(speeds[1]);
-    bl.set(speeds[2]);
-    br.set(speeds[3]);
-  }
 
   private void enableAutoBulkRead() {
     for (LynxModule mod : opMode.hardwareMap.getAll(LynxModule.class)) {

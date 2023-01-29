@@ -13,13 +13,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Fourbar extends SubsystemBase{
     public MotorEx left;
-    public MotorEx right;
-    private final PIDFController controller;
-    public static double p = 0.04, d = 0, f = 0, staticF = 0.1;
-    public static double tolerance = 100, powerUp = 0.4;
-    public static int mid = 2900, low = 1700, ground = 40, retrieval = 0, inc = 100, dec = 100;
+    public MotorEx fourBar;
 
-    private int target = 0;
 
 
 
@@ -28,68 +23,83 @@ public class Fourbar extends SubsystemBase{
     {
         left = new MotorEx(opMode.hardwareMap, "leftFour", Motor.GoBILDA.RPM_312);
      //   left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         left.motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        right = new MotorEx(opMode.hardwareMap, "rightFour", Motor.GoBILDA.RPM_312);
-        right.motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        fourBar = new MotorEx(opMode.hardwareMap, "fourBar", Motor.GoBILDA.RPM_312);
+        fourBar.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       //  right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        right.motor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        controller = new PIDFController(p, 0, d, f);
-        controller.setTolerance(tolerance);
-        controller.setSetPoint(target);
-
+        fourBar.motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
-    public void runTo (int t)
+
+
+    public void up(double power)
     {
-        controller.setSetPoint(t);
-        target = t;
+       fourBar.set(power);
     }
 
-    public void up()
-    {
-        runTo(target+inc);
-    }
 
-    public void down()
+    public void down(double power)
     {
-        runTo(target-dec);
+        fourBar.set(-power);
     }
 
     public void toMid()
     {
-        runTo(mid);
+        fourBar.setRunMode(Motor.RunMode.PositionControl);
+        fourBar.setPositionTolerance(5);
+        fourBar.setTargetPosition(600);//2783//5591
+        while(!fourBar.atTargetPosition()){
+            fourBar.set(0.8);
+        }
+        fourBar.stopMotor();
+        fourBar.setRunMode(Motor.RunMode.RawPower);
     }
 
     public void toLow()
     {
-        runTo(low);
+        fourBar.setRunMode(Motor.RunMode.PositionControl);
+        fourBar.setPositionTolerance(5);
+        fourBar.setTargetPosition(300);//2783//5591
+        while(!fourBar.atTargetPosition()){
+            fourBar.set(0.8);
+        }
+        fourBar.stopMotor();
+        fourBar.setRunMode(Motor.RunMode.RawPower);
     }
 
     public void toGround()
     {
-        runTo(ground);
+        fourBar.setRunMode(Motor.RunMode.PositionControl);
+        fourBar.setPositionTolerance(5);
+        fourBar.setTargetPosition(100);//2783//5591
+        while(!fourBar.atTargetPosition()){
+            fourBar.set(0.8);
+        }
+        fourBar.stopMotor();
+        fourBar.setRunMode(Motor.RunMode.RawPower);
     }
 
     public void toRetrieval()
     {
-        runTo(retrieval);
+        fourBar.setRunMode(Motor.RunMode.PositionControl);
+        fourBar.setPositionTolerance(5);
+        fourBar.setTargetPosition(0);//2783//5591
+        while(!fourBar.atTargetPosition()){
+            fourBar.set(0.8);
+        }
+        fourBar.stopMotor();
+        fourBar.setRunMode(Motor.RunMode.RawPower);
     }
 
-    public void periodic()
+    public void stop()
     {
-        controller.setPIDF(p, 0, d , f);
-        if(controller.atSetPoint()){
-            left.set(staticF);
-            right.set(staticF);
-        }else{
-            left.set(powerUp * controller.calculate(left.getCurrentPosition()));
-            right.set(powerUp * controller.calculate(right.getCurrentPosition()));
-        }
+        fourBar.stopMotor();
     }
+
+
 
 }
 

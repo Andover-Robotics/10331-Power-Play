@@ -160,6 +160,38 @@ public class MainTeleOp extends BaseOpMode {//required vars here
     }
 
 
+    if (gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER)>0.01)
+    {
+      bot.fourBar.up(gamepadEx2.getTrigger(Trigger.RIGHT_TRIGGER));
+    }else if(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER)>0.01)
+    {
+      bot.fourBar.down(gamepadEx2.getTrigger(Trigger.LEFT_TRIGGER));
+    }else {
+      bot.fourBar.stop();
+    }
+
+
+    if(gamepadEx2.getButton(Button.Y)) {
+      bot.claw.closeClaw();
+      bot.fourBar.toMid();
+    }
+
+    if(gamepadEx2.getButton(Button.B)) {
+      bot.claw.closeClaw();
+      bot.fourBar.toLow();
+    }
+
+    if(gamepadEx2.getButton(Button.A)){
+      bot.claw.closeClaw();
+      bot.fourBar.toGround();
+    }
+
+    if(gamepadEx2.getButton(Button.X)) {
+      bot.fourBar.toRetrieval();
+      bot.claw.openClaw();
+    }
+
+
 
 
 
