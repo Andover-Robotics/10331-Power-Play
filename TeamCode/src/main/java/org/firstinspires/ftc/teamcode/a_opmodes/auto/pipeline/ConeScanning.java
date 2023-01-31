@@ -14,12 +14,14 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class ConeScanning extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
+
     public enum Position {
         ONE,
         TWO,
         THREE,
         NOT_FOUND
     }
+
     private Position position;
 
     static final int SCREEN_WIDTH = 1280; //TODO find dimensions of phone
@@ -39,52 +41,71 @@ public class ConeScanning extends OpenCvPipeline {
 
     @Override
     public Mat processFrame(Mat input) {
+
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+        //test for high and low values
+        Scalar positionOneHigh = new Scalar(255,102,255);
+        Scalar positionOneLow = new Scalar(225,72,225);
+
+        Scalar positionTwoHigh = new Scalar(0,204,255);
+        Scalar positionTwoLow = new Scalar(0,74,225);
+
+        Scalar positionThreeHigh = new Scalar(102,0,204);
+        Scalar positionThreeLow = new Scalar(72,0,174);
+
+        Core.inRange(mat, positionOneHigh, positionOneLow, mat);
+        Core.inRange(mat, positionTwoHigh,positionTwoLow, mat);
+        Core.inRange(mat, positionThreeHigh,positionThreeLow, mat);
+
+
+
         //rgb to hsv, rgb isn't great for object detection most of the time
 
         //Scalar lowHSV, highHSV; // lower and upper range of yellow
-        lowHSV = new Scalar(23, 50, 70);
+        //lowHSV = new Scalar(23, 50, 70);
         //highHSV = new Scalar(32, 255, 255);
 
-        lowHSV = new Scalar(275,61,43);
-        highHSV = new Scalar(277,45,85);
-        Scalar positionOne = new Scalar(255,102,255);   //find rgb colors used
-        Scalar positionTwo = new Scalar(0,204,102);
-        Scalar positionThree = new Scalar(102,0,204);
+        //lowHSV = new Scalar(275,61,43);
+        //highHSV = new Scalar(277,45,85);
+        //Scalar positionOne = new Scalar(255, 102, 255);
+        //Scalar positionTwo = new Scalar(0, 204, 102);
+        //Scalar positionThree = new Scalar(102, 0, 204);
+
         //thresholding
         //Core.inRange(mat, lowHSV, highHSV, mat);
 
-        //Mat one = mat.submat(ONE_ROI);
-        //Mat two = mat.submat(TWO_ROI);
-        //Mat three = mat.submat(THREE_ROI);
+        Mat cone = mat;        //Mat three = mat.submat(THREE_ROI);
 
-        //change the colors to be different for each
-        //double oneVal = Core.sumElems(one).val[0] / ONE_ROI.area() / 255;
-        //double twoVal = Core.sumElems(two).val[0] / TWO_ROI.area() / 255;
-        //double threeVal = Core.sumElems(three).val[0] / THREE_ROI.area() / 255;
 
-        //one.release();
+        double oneVal = Core.sumElems(cone).val[0] / 255;
+        double twoVal = Core.sumElems(cone).val[0] / 102;
+        double threeVal = Core.sumElems(cone).val[0] / 204;
+        //the numbers here?
+
+
+        cone.release();
+
         //two.release();
         //three.release();
 
-        telemetry.addData("Left raw value", (int) Core.sumElems(one).val[0]);
-        telemetry.addData("Mid raw value", (int) Core.sumElems(two).val[0]);
-        telemetry.addData("Right raw value", (int) Core.sumElems(three).val[0]);
-        telemetry.addData("Left percentage", Math.round(oneVal * 100) + "%");
-        telemetry.addData("Mid percentage", Math.round(twoVal * 100) + "%");
-        telemetry.addData("Right percentage", Math.round(threeVal * 100) + "%");
+        telemetry.addData("First raw value", (int) Core.sumElems(cone).val[0]);
+        telemetry.addData("Second raw value", (int) Core.sumElems(cone).val[0]);
+        telemetry.addData("Third raw value", (int) Core.sumElems(cone).val[0]);
+        telemetry.addData("First percentage", Math.round(oneVal * 100) + "%");
+        telemetry.addData("Second percentage", Math.round(twoVal * 100) + "%");
+        telemetry.addData("Third percentage", Math.round(threeVal * 100) + "%");
 
-        boolean positionOne = oneVal > PERCENT_COLOR_THRESHOLD;
-        boolean positionTwo = twoVal > PERCENT_COLOR_THRESHOLD;
-        boolean positionThree = threeVal > PERCENT_COLOR_THRESHOLD;
+        boolean colorOne = oneVal > PERCENT_COLOR_THRESHOLD;
+        boolean colorTwo = twoVal > PERCENT_COLOR_THRESHOLD;
+        boolean colorThree = threeVal > PERCENT_COLOR_THRESHOLD;
 
-        if (positionOne) {
+        if (colorOne) {
             position = Position.ONE;
             telemetry.addData("Parking position: ", "1");
-        } else if (positionTwo) {
+        } else if (colorTwo) {
             position = Position.TWO;
             telemetry.addData("Parking position: ", "2");
-        } else if (positionThree) {
+        } else if (colorThree) {
             position = Position.THREE;
             telemetry.addData("Parking position: ", "3");
         } else {
@@ -99,22 +120,16 @@ public class ConeScanning extends OpenCvPipeline {
         //Scalar colorTwo = new Scalar(0, 255, 0);
         //Scalar colorThree = new Scalar();
 
-        Imgproc.rectangle(mat, ONE_ROI, position == Position.ONE ? color:colorNoDuck);
-        Imgproc.rectangle(mat, TWO_ROI, position == Position.TWO ? colorDuck:colorNoDuck);
-        Imgproc.rectangle(mat, THREE_ROI, position == Position.THREE ? colorDuck:colorNoDuck);
-
+        //Imgproc.rectangle(mat, position == Position.ONE ? color:colorNoDuck);
+        //Imgproc.rectangle(mat, position == Position.TWO ?);
         return mat;
 
 
     }
 
-
-
-
-     // returns the location of the duck on the barcode, either LEFT, MIDDLE, RIGHT, or NOT_FOUND
-     //@return position;
-
-    public Position getPosition(); {
+    // returns the location of the duck on the barcode, either LEFT, MIDDLE, RIGHT, or NOT_FOUND
+    //@return position;
+    public Position getPosition() {
         return position;
     }
 }
