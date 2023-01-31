@@ -155,7 +155,8 @@ public class MainTeleOp extends BaseOpMode {//required vars here
     if (gamepadEx2.getButton(Button.LEFT_BUMPER)){
       bot.claw.openClaw();
     }
-    else{
+
+    if (gamepadEx2.getButton(Button.RIGHT_BUMPER)){
       bot.claw.closeClaw();
     }
 
