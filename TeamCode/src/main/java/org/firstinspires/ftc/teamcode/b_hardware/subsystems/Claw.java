@@ -16,11 +16,11 @@ public class Claw extends SubsystemBase{
     }
 //    // TODO: ask Sasha about how claw works
     public void closeClaw(){
-        claw.setPosition(0);
+        claw.setPosition(0.4);
     }
 //
     public void openClaw(){
-        claw.setPosition(0.15);}
+        claw.setPosition(0.25);}
 
 
 }

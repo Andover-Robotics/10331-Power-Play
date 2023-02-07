@@ -44,14 +44,14 @@ public class ConeScanning extends OpenCvPipeline {
 
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
         //test for high and low values
-        Scalar positionOneHigh = new Scalar(255,102,255);
-        Scalar positionOneLow = new Scalar(225,72,225);
+        Scalar positionOneHigh = new Scalar(209,0,0);   // Red: hsv(0,100,82)
+        Scalar positionOneLow = new Scalar(171,3,3);
 
-        Scalar positionTwoHigh = new Scalar(0,204,255);
-        Scalar positionTwoLow = new Scalar(0,74,225);
+        Scalar positionTwoHigh = new Scalar(255,255,0);     //Yellow hsv(60,100,100)
+        Scalar positionTwoLow = new Scalar(173,173,2);
 
-        Scalar positionThreeHigh = new Scalar(102,0,204);
-        Scalar positionThreeLow = new Scalar(72,0,174);
+        Scalar positionThreeHigh = new Scalar(23,216,255);     //Blue  hsv(190,91,100)
+        Scalar positionThreeLow = new Scalar(18,139,163);
 
         Core.inRange(mat, positionOneHigh, positionOneLow, mat);
         Core.inRange(mat, positionTwoHigh,positionTwoLow, mat);
@@ -78,9 +78,9 @@ public class ConeScanning extends OpenCvPipeline {
 
 
         double oneVal = Core.sumElems(cone).val[0] / 255;
-        double twoVal = Core.sumElems(cone).val[0] / 102;
-        double threeVal = Core.sumElems(cone).val[0] / 204;
-        //the numbers here?
+        double twoVal = Core.sumElems(cone).val[0] / 255;
+        double threeVal = Core.sumElems(cone).val[0] / 255;
+
 
 
         cone.release();
@@ -114,14 +114,7 @@ public class ConeScanning extends OpenCvPipeline {
         }
         telemetry.update();
 
-        //Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
-        //Scalar colorOne = new Scalar(255, 0, 0);
-        //Scalar colorTwo = new Scalar(0, 255, 0);
-        //Scalar colorThree = new Scalar();
-
-        //Imgproc.rectangle(mat, position == Position.ONE ? color:colorNoDuck);
-        //Imgproc.rectangle(mat, position == Position.TWO ?);
         return mat;
 
 

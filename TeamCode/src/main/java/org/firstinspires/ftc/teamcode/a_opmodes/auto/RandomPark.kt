@@ -17,7 +17,7 @@ import kotlin.math.roundToInt
 
 
 
-class Park(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
+class RandomPark(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths functionality to this
 
     //TODO: reverse this
 
@@ -91,48 +91,7 @@ class Park(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths func
     }
 
 
-//    val open = AutoPathElement.Action("Clamp open") {
-//        bot.outtake.open();
-//    }
 
-
-    //TODO: insert action vals here
-
-//    val runCarousel = AutoPathElement.Action("Run carousel motor") {
-//        bot.carousel.run()
-//        Thread.sleep(2500)
-//        bot.carousel.stop()
-//    }
-
-
-
-
-// to go edge while... clamp, restArm, flip,
-
-
-//    fun edgeInCarousel (): AutoPathElement.Path{
-//        return AutoPathElement.Path ("edge", bot.roadRunner.trajectoryBuilder(p2D(63.0, -70.0, -PI / 2))
-//                //.lineToSplineHeading(p2dSame(65.5, 0.0, PI / 2))
-//                .strafeLeft(60.0)
-//                .addTemporalMarker(0.01, clamp.runner)
-//                .addTemporalMarker(0.2, restArm.runner)
-//                .addTemporalMarker(0.2,flip.runner)
-//                .build())
-//    }
-
-
-
-
-
-
-    //                                                                  =======================================================
-
-    //example
-    //private val shootRings = AutoPathElement.Action("Shoot 3 rings") {
-    //        bot.shooter.shootRings(opMode, 3, 0.8)
-    //        bot.shooter.turnOff()
-    //        Thread.sleep(1000)
-    //    }
 
 
     //Copy from here on into AutoPathVisualizer ==============================================================================
@@ -154,67 +113,53 @@ class Park(val opMode: LinearOpMode)  {//TODO: possibly add the TeleOpPaths func
 
     //TODO: Make Trajectories in trajectorySets
 
-    //
-    //
-    //                                                                        ====================================================
-//    val moveToCaroselAndLowerArm = AutoPathElement.Action("move to carosel while lowering arm :)") {
-//        ParellelCommandGroup(
-//                makePath(
-//            "move to edge (hub to warehouse)",
-//            drive.trajectoryBuilder(p2dToHub(63.0,-61.0,0.0))
-//                .lineToSplineHeading(p2dSame(65.5,  0.0,PI/2)).build()
-//        ),
-//        clamp,
-//        downArm).
-//    }
-
-
     val trajectorySets: Map<TemplateDetector.PipelineResult, List<Any>> = mapOf(
         TemplateDetector.PipelineResult.LEFT to run {
             listOf(
-                drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
-                    .strafeTo(v2d(36.0, -60.0))
-                    .build()
-                //The currently written coordinates are for right red alliance
-                //For blue left: (-x,y) including start position
-                //for red left: (-x,-y) incl start pos
-                //for blue right: (x,-y) incl start pos
-                //the trajectories remain unchanged for all (?)
-
-
+                makePath(
+                    "move to warehouse",
+                    drive.trajectoryBuilder(startPose)
+                        .forward(24.0)
+                        .build()
+                )
             )
         },
         TemplateDetector.PipelineResult.MIDDLE to run {
             listOf(
-                drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
-                    .strafeTo(v2d(24.0,-36.0))
-                    .build()
+                makePath(
+                    "move to warehouse",
+                    drive.trajectoryBuilder(startPose)
+                        .forward(24.0)
+                        .build()
+                )
             )
         },
         TemplateDetector.PipelineResult.RIGHT to run {
             listOf(
-                drive.trajectoryBuilder(p2d(72.0,-36.0,0.0))
-                    .strafeTo(v2d(24.0,-12.0))
-                    .build()
-
-            //add intake when inside warehouse and open claw when awt shipping hub
+                makePath(
+                    "move to warehouse",
+                    drive.trajectoryBuilder(startPose)
+                        .forward(24.0)
+                        .build()
+                )
+                //add intake when inside warehouse and open claw when awt shipping hub
             )
         }
     )
 
 
-//    fun park(result: TemplateDetector.PipelineResult): List<AutoPathElement> {
-//        return run {
-//            listOf(
-//                    makePath(
-//                            "drive into warehouse",
-//                            drive.trajectoryBuilder(startPose)
-//                                    .forward(72.0)
-//                                    .build()
-//                    )
-//            )
-//        }
-//    }
+    fun park(result: TemplateDetector.PipelineResult): List<AutoPathElement> {
+        return run {
+            listOf(
+                    makePath(
+                            "drive into warehouse",
+                            drive.trajectoryBuilder(startPose)
+                                    .forward(24.0)
+                                    .build()
+                    )
+            )
+        }
+    }
 
 
     fun getTrajectories(a: TemplateDetector.PipelineResult): List<AutoPathElement> {

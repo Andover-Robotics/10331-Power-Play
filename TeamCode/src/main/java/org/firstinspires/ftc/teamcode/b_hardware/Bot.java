@@ -27,7 +27,6 @@ public class Bot {
   public final MecanumDrive drive;
   public final RRMecanumDrive roadRunner;
   public final BNO055IMU imu;
-  private MotorEx fl, fr, bl, br;
 
   public final Fourbar fourBar;
   public OpMode opMode;
@@ -77,20 +76,13 @@ public class Bot {
 //    this.arm = new Arm(opMode);
 
 
-    fl = new MotorEx(opMode.hardwareMap, "motorFL");
-    fr = new MotorEx(opMode.hardwareMap, "motorFR");
-    bl = new MotorEx(opMode.hardwareMap, "motorBL");
-    br = new MotorEx(opMode.hardwareMap, "motorBR");
 
     //required subsystems
-    this.drive = new MecanumDrive(fl, fr, bl, br);
-
-    //required subsystems
-//    this.drive = new MecanumDrive(false,
-//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFL),
-//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFR),
-//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBL),
-//        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBR));
+    this.drive = new MecanumDrive(false,
+        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFL),
+        new MotorEx(opMode.hardwareMap, GlobalConfig.motorFR),
+        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBL),
+        new MotorEx(opMode.hardwareMap, GlobalConfig.motorBR));
     this.roadRunner = new RRMecanumDrive(opMode.hardwareMap);
 //    this.cosmetics = new Cosmetics(opMode);
     imu = roadRunner.imu;

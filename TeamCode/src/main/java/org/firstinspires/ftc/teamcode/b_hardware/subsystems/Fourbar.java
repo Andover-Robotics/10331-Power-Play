@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Fourbar extends SubsystemBase{
-    public MotorEx left;
     public MotorEx fourBar;
 
 
@@ -21,14 +20,8 @@ public class Fourbar extends SubsystemBase{
 
  public Fourbar (OpMode opMode)
     {
-        left = new MotorEx(opMode.hardwareMap, "leftFour", Motor.GoBILDA.RPM_312);
-     //   left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left.motor.setDirection(DcMotorSimple.Direction.FORWARD);
-
         fourBar = new MotorEx(opMode.hardwareMap, "fourBar", Motor.GoBILDA.RPM_312);
         fourBar.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-      //  right.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fourBar.motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
@@ -50,7 +43,7 @@ public class Fourbar extends SubsystemBase{
     {
         fourBar.setRunMode(Motor.RunMode.PositionControl);
         fourBar.setPositionTolerance(5);
-        fourBar.setTargetPosition(600);//2783//5591
+        fourBar.setTargetPosition(1300);//2783//5591
         while(!fourBar.atTargetPosition()){
             fourBar.set(0.8);
         }
@@ -62,7 +55,7 @@ public class Fourbar extends SubsystemBase{
     {
         fourBar.setRunMode(Motor.RunMode.PositionControl);
         fourBar.setPositionTolerance(5);
-        fourBar.setTargetPosition(300);//2783//5591
+        fourBar.setTargetPosition(-680);//2783//5591
         while(!fourBar.atTargetPosition()){
             fourBar.set(0.8);
         }
@@ -74,7 +67,7 @@ public class Fourbar extends SubsystemBase{
     {
         fourBar.setRunMode(Motor.RunMode.PositionControl);
         fourBar.setPositionTolerance(5);
-        fourBar.setTargetPosition(100);//2783//5591
+        fourBar.setTargetPosition(-2800);//2783//5591
         while(!fourBar.atTargetPosition()){
             fourBar.set(0.8);
         }
@@ -86,7 +79,7 @@ public class Fourbar extends SubsystemBase{
     {
         fourBar.setRunMode(Motor.RunMode.PositionControl);
         fourBar.setPositionTolerance(5);
-        fourBar.setTargetPosition(0);//2783//5591
+        fourBar.setTargetPosition(-3200);//2783//5591
         while(!fourBar.atTargetPosition()){
             fourBar.set(0.8);
         }
@@ -98,8 +91,6 @@ public class Fourbar extends SubsystemBase{
     {
         fourBar.stopMotor();
     }
-
-
 
 }
 
