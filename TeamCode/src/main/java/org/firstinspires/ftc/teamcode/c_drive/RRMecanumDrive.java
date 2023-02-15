@@ -48,7 +48,6 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.teamcode.GlobalConfig;
 import org.firstinspires.ftc.teamcode.c_drive.localizer.SensorFusionLocalizer;
 import org.firstinspires.ftc.teamcode.d_util.utilclasses.AxesSigns;
 import org.firstinspires.ftc.teamcode.d_util.utilclasses.BNO055IMUUtil;

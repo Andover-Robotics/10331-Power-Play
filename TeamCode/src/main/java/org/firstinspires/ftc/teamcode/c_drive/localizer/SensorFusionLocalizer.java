@@ -5,8 +5,6 @@ import com.acmerobotics.roadrunner.localization.Localizer;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.GlobalConfig;
-import org.firstinspires.ftc.teamcode.GlobalConfig.SensorFusionValues;
 import org.firstinspires.ftc.teamcode.d_util.utilclasses.Encoder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

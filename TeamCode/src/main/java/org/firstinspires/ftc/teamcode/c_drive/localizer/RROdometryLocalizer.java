@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.GlobalConfig.EncoderValues;
 import org.firstinspires.ftc.teamcode.d_util.utilclasses.Encoder;
 
 import java.util.Arrays;
